@@ -14,7 +14,7 @@ const PROTECTED = [
   "/profile",
 ];
 
-export function proxy(request) {
+export default function proxy(request: any) {
   const { pathname } = request.nextUrl;
   const isProtected = PROTECTED.some((p) => pathname.startsWith(p));
 

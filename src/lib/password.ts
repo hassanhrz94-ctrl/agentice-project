@@ -11,7 +11,7 @@ const KEYLEN = 64;
  */
 export async function hashPassword(password) {
   const salt = randomBytes(16).toString("hex");
-  const buf = /** @type {Buffer} */ (await scryptAsync(password, salt, KEYLEN));
+  const buf = (await scryptAsync(password, salt, KEYLEN)) as Buffer;
   return `${salt}:${buf.toString("hex")}`;
 }
 
@@ -26,8 +26,6 @@ export async function comparePassword(password, hash) {
   const [salt, key] = hash.split(":");
   if (!salt || !key) return false;
   const keyBuffer = Buffer.from(key, "hex");
-  const derived = /** @type {Buffer} */ (
-    await scryptAsync(password, salt, KEYLEN)
-  );
+  const derived = (await scryptAsync(password, salt, KEYLEN)) as Buffer;
   return timingSafeEqual(keyBuffer, derived);
 }

@@ -13,7 +13,7 @@ export async function signupAction(prevState, formData) {
   const confirmPassword = formData.get("confirmPassword")?.toString() ?? "";
 
   // Validate
-  const errors = {};
+  const errors: Record<string, string> = {};
   if (name.length < 2) errors.name = "Name must be at least 2 characters.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
     errors.email = "Please enter a valid email address.";
@@ -48,7 +48,7 @@ export async function loginAction(prevState, formData) {
   const email = formData.get("email")?.toString().trim().toLowerCase() ?? "";
   const password = formData.get("password")?.toString() ?? "";
 
-  const errors = {};
+  const errors: Record<string, string> = {};
   if (!email) errors.email = "Email is required.";
   if (!password) errors.password = "Password is required.";
   if (Object.keys(errors).length) return { errors };
